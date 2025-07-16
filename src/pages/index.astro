@@ -1,5 +1,5 @@
 ---
-
+import "../styles/global.css"
 ---
 
 <html lang="en">
@@ -7,10 +7,62 @@
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Password Generator</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+    <script>
+    const display = document.getElementById("password");
+    const wrapper = document.getElementById("box")
+    const response = await fetch("/words.txt");
+    if (!response.ok) {
+        throw new Error(`Error!: ${response.status}`);
+    }
+    const file = await response.text();
+    const words = file
+        .split("\n")
+    .filter((word) => word.trim() !== "");
+    const symbols = ["!", "@", "#", "$", "%", "&", "^", "*", "?", "-", "_", "+", "="];
+    const capitals = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    let password = ""
+    for (let i = 0; i < 5; i++) {
+        let extra = ""
+        if (Math.random() > 0.5) {
+            extra = capitals[Math.floor(Math.random()*capitals.length)]
+        }
+        const randomWord = Math.floor(Math.random() * words.length);
+        const randomSymbol = Math.floor(Math.random() * symbols.length);
+        password += words[randomWord] + extra + symbols[randomSymbol];
+        
+    }
+    display.textContent = "•".repeat(password.length)
+    display.style.setProperty("color", "#ffffff")
+    wrapper.style.setProperty("border-color", "#ffffff")
+    wrapper?.addEventListener("mouseenter", () => {
+        display.textContent = password
+    })
+    wrapper?.addEventListener("mouseleave", () => {
+        display.textContent = "•".repeat(password.length)
+    })
+    wrapper?.addEventListener("mousedown", () => {
+        navigator.clipboard.writeText(password)
+        display.style.setProperty("color", "#83c472")
+        wrapper.style.setProperty("border-color", "#83c472")
+        display.textContent = "Copied to clipboard"
+        setTimeout(() => {
+            display.style.setProperty("color", "#ffffff")
+            wrapper.style.setProperty("border-color", "#ffffff")
+            if (wrapper.matches(":hover")) {
+                display.textContent = password
+            } else {
+                display.textContent = "•".repeat(password.length)
+            }
+        }, 1000)
+    })
+    </script>
+    <body class="bg-black flex justify-center align-middle min-h-svh font-display font-bold">
+        <div id="box" class="m-auto pt-[4rem] pb-[4rem] pl-[6rem] pr-[6rem] border-2 border-[#d14141] rounded-2xl 
+            hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in hover:ease-out
+            ">
+            <span id="password" class="text-[#d14141] text-2xl text-center transition-colors duration-150 ease-in hover:ease-out">Generating...</span>
+        </div>
+    </body>
 </html>
