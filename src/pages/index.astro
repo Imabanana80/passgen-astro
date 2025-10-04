@@ -20,22 +20,10 @@ import "../styles/global.css"
     const words = file
         .split("\n")
     .filter((word) => word.trim() !== "");
-    const symbols = ["!", "@", "#", "$", "%", "&", "^", "*", "?", "-", "_", "+", "="];
-    const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    const capitals = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     let password = ""
     for (let i = 0; i < 5; i++) {
-        let extra = ""
-        if (Math.random() > 0.5) {
-            extra = capitals[Math.floor(Math.random()*capitals.length)]
-        }
-        if (Math.random() > 0.25) {
-            extra = extra + numbers[Math.floor(Math.random()*numbers.length)]
-        }
         const randomWord = Math.floor(Math.random() * words.length);
-        const randomSymbol = Math.floor(Math.random() * symbols.length);
-        password += words[randomWord] + extra + symbols[randomSymbol];
-        
+        password += words[randomWord] + " " 
     }
     display.textContent = "•".repeat(password.length)
     display.style.setProperty("color", "#ffffff")
