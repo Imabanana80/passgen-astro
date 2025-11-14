@@ -21,10 +21,11 @@ import "../styles/global.css"
         .split("\n")
     .filter((word) => word.trim() !== "");
     let password = ""
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         const randomWord = Math.floor(Math.random() * words.length);
         password += words[randomWord] + " " 
     }
+    password += words[randomWord]
     display.textContent = "•".repeat(password.length)
     display.style.setProperty("color", "#ffffff")
     wrapper.style.setProperty("border-color", "#ffffff")
