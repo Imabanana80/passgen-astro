@@ -25,6 +25,7 @@ import "../styles/global.css"
         const randomWord = Math.floor(Math.random() * words.length);
         password += words[randomWord] + " " 
     }
+    const randomWord = Math.floor(Math.random() * words.length);
     password += words[randomWord]
     display.textContent = "•".repeat(password.length)
     display.style.setProperty("color", "#ffffff")
