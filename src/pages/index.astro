@@ -29,7 +29,7 @@ import "../styles/global.css"
     password += words[randomWord]
     display.textContent = "•".repeat(password.length)
     display.style.setProperty("color", "#ffffff")
-    wrapper.style.setProperty("border-color", "#ffffff")
+    wrapper.style.setProperty("border-color", "oklch(20.8% 0.042 265.755)")
     wrapper?.addEventListener("mouseenter", () => {
         display.textContent = password
     })
@@ -43,7 +43,7 @@ import "../styles/global.css"
         display.textContent = "Copied to clipboard..."
         setTimeout(() => {
             display.style.setProperty("color", "#ffffff")
-            wrapper.style.setProperty("border-color", "#ffffff")
+            wrapper.style.setProperty("border-color", "oklch(20.8% 0.042 265.755)")
             if (wrapper.matches(":hover")) {
                 display.textContent = password
             } else {
@@ -63,7 +63,7 @@ import "../styles/global.css"
     })
     </script>
     <body class="bg-black flex justify-center align-middle min-h-svh font-display font-bold">
-        <div id="box" class="m-auto pt-[4rem] pb-[4rem] min-w-[50%] max-w-[90%] pl-[6rem] pr-[6rem] border-2 border-[#7289c4] rounded-2xl flex flex-col
+        <div id="box" class="m-auto pt-[4rem] pb-[4rem] min-w-[50%] max-w-[90%] pl-[6rem] pr-[6rem] border-2 border-[#7289c4] flex flex-col
             hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in hover:ease-out
             ">
             <span id="password" class="text-[#7289c4] text-3xl text-center transition-colors duration-150 ease-in hover:ease-out overflow-clip">Generating...</span>
