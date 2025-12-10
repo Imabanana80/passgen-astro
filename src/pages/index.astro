@@ -12,21 +12,34 @@ import "../styles/global.css"
     <script>
     const display = document.getElementById("password");
     const wrapper = document.getElementById("box")
-    const response = await fetch("/words.txt");
-    if (!response.ok) {
-        throw new Error(`Error!: ${response.status}`);
+    const wordsResponse = await fetch("/words.txt");
+    if (!wordsResponse.ok) {
+        throw new Error(`Error!: ${wordsResponse.status}`);
     }
-    const file = await response.text();
-    const words = file
+    const wordsFile = await wordsResponse.text();
+    const words = wordsFile 
         .split("\n")
     .filter((word) => word.trim() !== "");
+
+    const charsResponse = await fetch("/chars.txt");
+    if (!charsResponse.ok) {
+        throw new Error(`Error!: ${charsResponse.status}`);
+    }
+    const charsFile = await charsResponse.text();
+    const chars = charsFile 
+        .split("\n")
+    .filter((char) => char.trim() !== "");
+
     let password = ""
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
         const randomWord = Math.floor(Math.random() * words.length);
         password += words[randomWord] + " " 
     }
-    const randomWord = Math.floor(Math.random() * words.length);
-    password += words[randomWord]
+    for (let i = 0; i < 6; i++) {
+        const randomChar = Math.floor(Math.random() * chars.length);
+        password += chars[randomChar]
+    }
+
     display.textContent = "•".repeat(password.length)
     display.style.setProperty("color", "#ffffff")
     wrapper.style.setProperty("border-color", "oklch(20.8% 0.042 265.755)")
